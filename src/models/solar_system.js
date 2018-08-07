@@ -22,6 +22,7 @@ SolarSystem.prototype.bindEvents = function () {
     }
       PubSub.publish('SolarSystem:selected-planet-object', chosenPlanet);
   };
+  // change to foreach or .find
 
 
 
