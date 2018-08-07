@@ -6,15 +6,23 @@ const SolarSystem = function(planets) {
 };
 
 SolarSystem.prototype.bindEvents = function () {
-  PubSub.publish('SolarSystem:all-planets-array', this.planets);
-  PubSub.subscribe('SelectView:selected-planet-index', (evt) => {
-    const selectedPlanetIndex = evt.detail;
-    this.publishPlanetDetail(selectedPlanetIndex);
+  PubSub.subscribe('SelectView:clicked-planet-id', (evt) => {
+    const selectedPlanetName = evt.detail;
+    this.publishPlanetByName(selectedPlanetName);
   });
 };
 
-  SolarSystem.prototype.publishPlanetDetail = function (selectedPlanetIndex) {
-    const selectedPlanet = this.planets[selectedPlanetIndex];
-    PubSub.publish('SolarSystem:selected-planet-object', selectedPlanet);
+  SolarSystem.prototype.publishPlanetByName = function (selectedPlanetName) {
+    let chosenPlanet;
+    for (const planet of planets) {
+      if (planet.name === selectedPlanetName) {
+        chosenPlanet = planet
+      }
+
+    }
+      PubSub.publish('SolarSystem:selected-planet-object', chosenPlanet);
   };
+
+
+
 module.exports = SolarSystem;
